@@ -1,0 +1,21 @@
+name: Deploy
+
+on:
+  pull_request:
+    types: [closed]
+    branches:
+      - E
+      - F
+
+jobs:
+  deploy:
+    if: github.event.pull_request.merged == true
+    runs-on: ubuntu-latest
+    environment: ${{ github.base_ref }}
+
+    steps:
+      - run: |
+          echo "SHA: $GITHUB_SHA"
+          echo "Base: ${{ github.base_ref }}"
+          echo "Head: ${{ github.head_ref }}"
+          echo "Merge SHA: ${{ github.event.pull_request.merge_commit_sha }}"
